@@ -1,0 +1,22 @@
+name: Docker
+
+on: push
+  
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        tf_version: [ "0.14.2" ]
+      fail-fast: true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Scan Docker Image
+        uses: azure/container-scan@v0
+        with:
+          image-name: ghcr.io/demo-teams/github-actions-for-packages/tic-tac-toe:sha-a434861
